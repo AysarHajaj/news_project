@@ -24,3 +24,8 @@ Route::get(
     'unauthenticated',
     [AuthenticationController::class, 'unauthenticated']
 )->name('unauthenticated');
+
+Route::middleware('auth:api')->prefix('settings')->group(function () {
+    Route::get('/', [SettingController::class, 'show']);
+    Route::put('/{id}', [SettingController::class, 'update']);
+});
