@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,8 @@ Route::middleware('auth:api')->prefix('settings')->group(function () {
     Route::get('/', [SettingController::class, 'show']);
     Route::put('/{id}', [SettingController::class, 'update']);
 });
+
+Route::middleware('auth:api')->post(
+    'get-data',
+    [DataController::class, 'getData']
+);
