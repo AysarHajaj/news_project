@@ -49,4 +49,18 @@ class DataService
 
         return $result;
     }
+
+    public function exec($currentData, $api, $input)
+    {
+        $newData = $api->get($input);
+        $numberOfPages = $this->maxNumberOfPages(
+            $currentData['pages'],
+            $newData['pages']
+        );
+
+        return [
+            "articles" => [...$currentData['articles'], ...$newData['articles']],
+            "pages" => $numberOfPages
+        ];
+    }
 }
