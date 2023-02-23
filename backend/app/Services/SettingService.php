@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Classes\Formatters\SettingFormatter;
 use App\Constants\Sources;
 use App\Models\Setting;
 use App\Models\SettingSource;
@@ -10,6 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class SettingService
 {
+    private $settingFormatter;
+
+    public function __construct(SettingFormatter $settingFormatter)
+    {
+        $this->settingFormatter = $settingFormatter;
+    }
+
     public function addSettingForRegisteredUser($userId)
     {
         $setting = Setting::create([
