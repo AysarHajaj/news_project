@@ -47,7 +47,7 @@ class DataService
             }
         }
 
-        return $result;
+        return ["result" => $result];
     }
 
     public function exec($currentData, $api, $input)
