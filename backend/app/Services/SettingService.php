@@ -7,6 +7,7 @@ use App\Constants\Sources;
 use App\Models\Setting;
 use App\Models\SettingSource;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SettingService
@@ -56,6 +57,29 @@ class SettingService
 
             $response = [
                 "result" => true
+            ];
+
+            DB::commit();
+            return $response;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new Exception($th->getMessage());
+        }
+    }
+
+    public function get()
+    {
+        DB::beginTransaction();
+        try {
+            $user = Auth::user();
+            $user->load([
+                'setting' => function ($q) {
+                    $q->with(['sources']);
+                }
+            ]);
+
+            $response = [
+                'result' => $this->settingFormatter->format($user->setting)
             ];
 
             DB::commit();
