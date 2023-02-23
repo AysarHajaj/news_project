@@ -80,4 +80,9 @@ class AuthService
             throw new Exception($th->getMessage());
         }
     }
+
+    public function unauthenticated()
+    {
+        return ['error' => 'unauthenticated'];
+    }
 }
