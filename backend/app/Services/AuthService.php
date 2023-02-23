@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AuthService
@@ -33,6 +34,31 @@ class AuthService
 
             DB::commit();
             return $response;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new Exception($th->getMessage());
+        }
+    }
+
+    public function login($input)
+    {
+        DB::beginTransaction();
+        try {
+
+            if (Auth::attempt($input)) {
+                $user = Auth::user();
+
+                $response = [
+                    "result" => [
+                        "user" => $user,
+                        "token" => $user->createToken('innoscripta')->accessToken
+                    ]
+                ];
+                DB::commit();
+                return $response;
+            } else {
+                throw new Exception("Incorrect Email or Password");
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
             throw new Exception($th->getMessage());
