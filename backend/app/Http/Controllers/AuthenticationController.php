@@ -43,4 +43,17 @@ class AuthenticationController extends Controller
             return response()->json($response, 500);
         }
     }
+
+    public function logout()
+    {
+        try {
+            $response = $this->authService->logout();
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            $response = ["error" => $th->getMessage()];
+
+            return response()->json($response, 500);
+        }
+    }
 }
