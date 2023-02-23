@@ -56,4 +56,11 @@ class AuthenticationController extends Controller
             return response()->json($response, 500);
         }
     }
+
+    public function unauthenticated()
+    {
+        $response = $this->authService->unauthenticated();
+
+        return response()->json($response, 403);
+    }
 }
