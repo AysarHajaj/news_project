@@ -18,4 +18,9 @@ class Setting extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function sources()
+    {
+        return $this->hasMany(SettingSource::class, 'setting_id');
+    }
 }
