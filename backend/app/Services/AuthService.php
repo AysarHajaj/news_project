@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class AuthService
 {
+    private $settingService;
+
+    public function __construct(SettingService $settingService)
+    {
+        $this->settingService = $settingService;
+    }
+
     public function register($input)
     {
         DB::beginTransaction();
@@ -15,6 +22,7 @@ class AuthService
             $input['password'] = bcrypt($input['password']);
 
             $user = User::create($input);
+            $this->settingService->addSettingForRegisteredUser($user->id);
 
             $response = [
                 "result" => [
