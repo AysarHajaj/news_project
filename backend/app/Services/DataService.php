@@ -63,4 +63,13 @@ class DataService
             "pages" => $numberOfPages
         ];
     }
+
+    public function maxNumberOfPages($current, $coming)
+    {
+        if ($coming > $current) {
+            return $coming;
+        }
+
+        return $current;
+    }
 }
