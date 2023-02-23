@@ -64,4 +64,20 @@ class AuthService
             throw new Exception($th->getMessage());
         }
     }
+
+    public function logout()
+    {
+        DB::beginTransaction();
+        try {
+            $user = Auth::user();
+            $user->token()->revoke();
+
+            $response = ["result" => true];
+            DB::commit();
+            return $response;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new Exception($th->getMessage());
+        }
+    }
 }
