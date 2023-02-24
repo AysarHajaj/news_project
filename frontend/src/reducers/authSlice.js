@@ -13,11 +13,22 @@ const initialState = {
     isLoading: false,
     error: null,
   },
+  logout: {
+    isLoading: false,
+    error: null,
+  },
 };
 
 export const login = createAsyncThunk("login", (data, { rejectWithValue }) =>
   api
     .login(data)
+    .then((response) => response.data)
+    .catch((error) => rejectWithValue(error?.response?.data))
+);
+
+export const logout = createAsyncThunk("logout", (data, { rejectWithValue }) =>
+  api
+    .logout()
     .then((response) => response.data)
     .catch((error) => rejectWithValue(error?.response?.data))
 );
@@ -79,6 +90,22 @@ export const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.register.isLoading = false;
         state.register.error = action.payload.error;
+      })
+      // logout case
+      .addCase(logout.pending, (state) => {
+        state.logout.isLoading = true;
+        state.logout.error = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.logout.isLoading = false;
+        state.login.user = {};
+        state.login.token = "";
+        storage.clearToken();
+        storage.clearUser();
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.logout.isLoading = false;
+        state.logout.error = action.payload.error;
       });
   },
 });
