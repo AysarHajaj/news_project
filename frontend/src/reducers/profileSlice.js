@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../api";
+import { setUserData } from "./authSlice";
 
 const initialState = {
   update: {
@@ -10,10 +11,13 @@ const initialState = {
 
 export const updateProfile = createAsyncThunk(
   "update/profile",
-  (data, { rejectWithValue }) =>
+  (data, { rejectWithValue, dispatch }) =>
     api
       .updateProfile(data)
-      .then((response) => ({ result: response.data.result, data }))
+      .then((response) => {
+        dispatch(setUserData({ name: data.name, email: data.email }));
+        return response.data;
+      })
       .catch((error) => rejectWithValue(error?.response?.data))
 );
 
@@ -27,10 +31,8 @@ export const profileSlice = createSlice({
         state.update.isLoading = true;
         state.update.error = null;
       })
-      .addCase(updateProfile.fulfilled, (state, action) => {
+      .addCase(updateProfile.fulfilled, (state) => {
         state.update.isLoading = false;
-        state.login.user.name = action.payload.data.name;
-        state.login.user.email = action.payload.data.email;
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.update.isLoading = false;
