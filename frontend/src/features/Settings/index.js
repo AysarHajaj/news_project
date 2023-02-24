@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectOptions,
   getSettingsOptions,
-  selectUpdate,
   updateSettings,
 } from "../../reducers/settingsSlice";
 import { useAuth } from "../../hooks/useAuth";

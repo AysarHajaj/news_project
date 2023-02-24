@@ -1,0 +1,39 @@
+@import "../../../../styles/variables.scss";
+.filters-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  > div {
+    flex-basis: calc(50% - 5px);
+    @media screen and (max-width: 600px) {
+      flex-basis: 100%;
+    }
+  }
+  .search-input {
+    flex-basis: 100%;
+    min-width: 100%;
+  }
+  .date-container {
+    margin-top: 15px;
+    label {
+      font-size: 0.9em;
+    }
+    .date-picker {
+      width: 100%;
+      height: 58px;
+      border-radius: 5px;
+      border: 1px solid rgba($color: #000000, $alpha: 0.23);
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: 0.9em;
+      &:hover {
+        border-color: #2b3238;
+      }
+      &:active,
+      &:focus {
+        border-color: $colorPrimary;
+      }
+    }
+  }
+}

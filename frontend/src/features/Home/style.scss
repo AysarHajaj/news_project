@@ -1,0 +1,79 @@
+@import "../../styles/variables.scss";
+
+.home-page-section {
+  .article-pagination {
+    width: 100%;
+    margin-top: 15px;
+    ul {
+      justify-content: center;
+    }
+  }
+  .articles-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 15px;
+    > div {
+      max-width: 400px;
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid rgba($color: #000000, $alpha: 0.09);
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba($color: #000000, $alpha: 0.1);
+      background-color: #f7fcfd;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      @media screen and (max-width: 870px) {
+        max-width: 100%;
+      }
+
+      .article-title {
+        font-weight: bold;
+        font-size: 0.8em;
+      }
+      .date {
+        font-size: 0.7em;
+        color: grey;
+      }
+      .author {
+        margin-top: 15px;
+      }
+      .category {
+        text-transform: capitalize;
+      }
+      .article-url {
+        a {
+          color: $colorPrimary;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 0.8em;
+          cursor: pointer;
+        }
+      }
+      .author,
+      .category,
+      .source,
+      .article-url {
+        font-style: italic;
+        font-size: 0.7em;
+        span:first-child {
+          text-decoration: underline;
+          font-weight: bold;
+          color: #686363;
+        }
+      }
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        align-self: flex-end;
+        width: 100%;
+      }
+    }
+  }
+}
