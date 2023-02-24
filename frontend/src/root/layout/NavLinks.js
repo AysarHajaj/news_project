@@ -71,12 +71,15 @@ function NavLinks() {
         </NavLink>
       ))}
       <NavLink
+        to="logout"
         className="nav-link-item"
         hidden={!isAuthenticated}
         onClick={handleLogout}
       >
-        <LogoutIcon />
-        <Typography sx={{ display: { xs: "none", sm: "block" } }}>
+        <LogoutIcon style={{ color: "orange" }} />
+        <Typography
+          sx={{ display: { xs: "none", sm: "block", color: "orange" } }}
+        >
           Logout
         </Typography>
       </NavLink>

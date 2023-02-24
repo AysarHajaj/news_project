@@ -9,10 +9,6 @@ const routes = {
   LOGIN: {
     path: paths.LOGIN,
   },
-  LOGOUT: {
-    path: paths.LOGOUT,
-    ELEMENT: React.lazy(() => import("../features/Login")),
-  },
   REGISTER: {
     path: paths.REGISTER,
   },
