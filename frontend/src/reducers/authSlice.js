@@ -34,6 +34,13 @@ export const register = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers: {
+    setUserData: (state, action) => {
+      const newUser = { ...state.login.user, ...action.payload };
+      state.login.user = newUser;
+      storage.setUser(newUser);
+    },
+  },
   extraReducers: (builder) => {
     builder
       // login case
@@ -73,5 +80,6 @@ export const authSlice = createSlice({
 
 export const selectLogin = (state) => state.auth.login;
 export const selectRegister = (state) => state.auth.register;
+export const { setUserData } = authSlice.actions;
 
 export default authSlice.reducer;
