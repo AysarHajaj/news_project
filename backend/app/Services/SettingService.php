@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Classes\Formatters\SettingFormatter;
+use App\Constants\Categories;
 use App\Constants\Sources;
 use App\Models\Setting;
 use App\Models\SettingSource;
@@ -93,5 +94,21 @@ class SettingService
     public function formateSetting($setting)
     {
         return $this->settingFormatter->format($setting);
+    }
+
+    public function getOptions()
+    {
+        try {
+            $response = [
+                'result' => [
+                    'sources' => Sources::ALL,
+                    'categories' => array_values(Categories::ALL)
+                ]
+            ];
+
+            return $response;
+        } catch (\Throwable $th) {
+            throw new Exception($th->getMessage());
+        }
     }
 }

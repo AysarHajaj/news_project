@@ -40,4 +40,17 @@ class SettingController extends Controller
             return response()->json($response, 500);
         }
     }
+
+    public function getOptions()
+    {
+        try {
+            $response = $this->settingService->getOptions();
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            $response = ["error" => $th->getMessage()];
+
+            return response()->json($response, 500);
+        }
+    }
 }
