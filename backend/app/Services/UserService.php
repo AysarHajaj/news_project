@@ -18,7 +18,7 @@ class UserService
         DB::beginTransaction();
         try {
             $user = Auth::user();
-            User::where('id', $user->id)->update([
+            $user->update([
                 'email' => $input['email'],
                 'name' => $input['name'],
                 'password' => bcrypt($input['password'])
