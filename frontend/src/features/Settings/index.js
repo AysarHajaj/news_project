@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import FormHelperText from "@mui/material/FormHelperText";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import LoadingButton from "@mui/lab/LoadingButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectOptions,
   getSettingsOptions,
+  selectUpdate,
+  updateSettings,
 } from "../../reducers/settingsSlice";
 import { useAuth } from "../../hooks/useAuth";
 import "./style.scss";
@@ -32,12 +29,14 @@ function Settings() {
   const {
     user: { setting: initialData },
   } = useAuth();
-  const { isLoading, error, sources, categories } = useSelector(selectOptions);
+  const { sources, categories } = useSelector(selectOptions);
+  const { isLoading, error } = useSelector(selectOptions);
   const dispatch = useDispatch();
 
   const [data, setData] = useState({
     category: initialData.category,
     sources: initialData.sources,
+    id: initialData.id,
   });
 
   const enableSave = useMemo(() => {
@@ -53,7 +52,7 @@ function Settings() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(updateProfile(data));
+    dispatch(updateSettings(data));
   };
 
   const handleChangeMultiSelect = (event) => {
