@@ -9,6 +9,10 @@ const initialState = {
     isLoading: false,
     error: null,
   },
+  register: {
+    isLoading: false,
+    error: null,
+  },
 };
 
 export const login = createAsyncThunk("login", (data, { rejectWithValue }) =>
@@ -16,6 +20,15 @@ export const login = createAsyncThunk("login", (data, { rejectWithValue }) =>
     .login(data)
     .then((response) => response.data)
     .catch((error) => rejectWithValue(error?.response?.data))
+);
+
+export const register = createAsyncThunk(
+  "register",
+  (data, { rejectWithValue }) =>
+    api
+      .register(data)
+      .then((response) => response.data)
+      .catch((error) => rejectWithValue(error?.response?.data))
 );
 
 export const authSlice = createSlice({
@@ -43,10 +56,27 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.login.isLoading = false;
         state.login.error = action.payload.result.error;
+      })
+      // register case
+      .addCase(register.pending, (state) => {
+        state.register.isLoading = true;
+        state.register.error = null;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.register.isLoading = false;
+        state.register.user = action.payload.result.user;
+        state.login.token = action.payload.result.token;
+        storage.setUser(action.payload.result.user);
+        storage.setToken(action.payload.result.token);
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.register.isLoading = false;
+        state.register.error = action.payload.result.error;
       });
   },
 });
 
 export const selectLogin = (state) => state.auth.login;
+export const selectRegister = (state) => state.auth.register;
 
 export default authSlice.reducer;
