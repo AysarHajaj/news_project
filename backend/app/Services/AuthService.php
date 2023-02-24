@@ -24,6 +24,12 @@ class AuthService
 
             $user = User::create($input);
             $this->settingService->addSettingForRegisteredUser($user->id);
+            $user->load([
+                'setting' => function ($q) {
+                    $q->with(['sources']);
+                }
+            ]);
+            $user->setting = $this->settingService->formateSetting($user->setting);
 
             $response = [
                 "result" => [
@@ -47,6 +53,12 @@ class AuthService
 
             if (Auth::attempt($input)) {
                 $user = Auth::user();
+                $user->load([
+                    'setting' => function ($q) {
+                        $q->with(['sources']);
+                    }
+                ]);
+                $user->setting = $this->settingService->formateSetting($user->setting);
 
                 $response = [
                     "result" => [

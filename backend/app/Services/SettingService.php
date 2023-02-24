@@ -79,7 +79,7 @@ class SettingService
             ]);
 
             $response = [
-                'result' => $this->settingFormatter->format($user->setting)
+                'result' => $this->formateSetting($user->setting)
             ];
 
             DB::commit();
@@ -88,5 +88,10 @@ class SettingService
             DB::rollBack();
             throw new Exception($th->getMessage());
         }
+    }
+
+    public function formateSetting($setting)
+    {
+        return $this->settingFormatter->format($setting);
     }
 }
