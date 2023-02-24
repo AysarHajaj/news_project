@@ -8,14 +8,17 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
-import { useDispatch, useSelector } from "react-redux";
-import { login, selectLogin } from "../../reducers/authSlice";
+import { useDispatch } from "react-redux";
+import { login } from "../../reducers/authSlice";
+import { useAuth } from "../../hooks/useAuth";
+import { Navigate } from "react-router-dom";
+import paths from "../../routes/paths";
 import "./style.scss";
 
 function Login() {
+  const { isLoading, error, isAuthenticated } = useAuth();
   const dispatch = useDispatch();
   const emailRef = useRef();
-  const { isLoading, error } = useSelector(selectLogin);
 
   const [data, setData] = useState({ password: "", email: "" });
   const [showPassword, setShowPassword] = React.useState(false);
@@ -25,7 +28,15 @@ function Login() {
     [data]
   );
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    emailRef?.current?.focus();
+  }, []);
+
+  if (isAuthenticated) {
+    return <Navigate to={paths.HOME} />;
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(data));
   };
@@ -40,10 +51,6 @@ function Login() {
     const property = e.target.name;
     setData({ ...data, [property]: e.target.value });
   };
-
-  useEffect(() => {
-    emailRef?.current?.focus();
-  }, []);
 
   return (
     <section className="login-container">
