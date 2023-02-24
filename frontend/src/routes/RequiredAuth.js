@@ -6,7 +6,6 @@ import paths from "./paths";
 function RequireAuth() {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
-  console.log(isAuthenticated);
   if (!isAuthenticated)
     return <Navigate to={paths.LOGIN} state={{ from: location }} replace />;
 
