@@ -22,8 +22,6 @@ class GetDataRequest extends FormRequest
         return [
             'sources.required' => 'You need to choose the data source',
             'sources.array' => 'Sources must be array of strings',
-            'from_date' => 'from_date must be a date',
-            'to_date' => 'to_date must be a date',
             'page.required' => 'You must specify the page number',
             'page.integer' => 'page must be an integer',
         ];
@@ -40,8 +38,6 @@ class GetDataRequest extends FormRequest
     {
         return [
             'sources' => "required|array",
-            'from_date' => "date",
-            'to_date' => "date",
             'page => required|integer'
         ];
     }
