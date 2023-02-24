@@ -18,7 +18,6 @@ class UpdateUserRequest extends FormRequest
             'email.required' => 'You need to enter your email',
             'email.email' => 'The email should be email structured',
             'email.unique' => 'The email you entered already exists',
-            'password.required' => 'You need to enter a password',
             'password.confirmed' => 'The password confirmation should match you password',
         ];
     }
@@ -36,7 +35,7 @@ class UpdateUserRequest extends FormRequest
         return [
             "name" => "required",
             "email" => "required|email|unique:users,email," . $user->id,
-            "password" => "required|confirmed",
+            "password" => "confirmed",
         ];
     }
 

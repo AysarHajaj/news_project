@@ -18,11 +18,12 @@ class UserService
         DB::beginTransaction();
         try {
             $user = Auth::user();
-            $user->update([
-                'email' => $input['email'],
-                'name' => $input['name'],
-                'password' => bcrypt($input['password'])
-            ]);
+            if (isset($input['password'])) {
+                $input['password'] = bcrypt($input['password']);
+            } else {
+                unset($input['password']);
+            }
+            $user->update($input);
 
             $response = [
                 "result" => true
