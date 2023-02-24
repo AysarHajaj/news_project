@@ -45,8 +45,9 @@ Route::middleware('auth:api')->group(function () {
         'profile',
         [UserController::class, 'update']
     );
+
+    Route::get(
+        'settings/options',
+        [SettingController::class, 'getOptions']
+    );
 });
-Route::get(
-    'settings/options',
-    [SettingController::class, 'getOptions']
-);
