@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material";
 import theme from "./styles/muiTheme";
+import { BrowserRouter } from "react-router-dom";
 import "./index.scss";
 
 const container = document.getElementById("root");
@@ -16,7 +17,9 @@ root.render(
     <Provider store={store}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
       </StyledEngineProvider>
     </Provider>
