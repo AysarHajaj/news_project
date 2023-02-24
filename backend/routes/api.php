@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,21 +19,30 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthenticationController::class, 'register']);
 Route::post('login', [AuthenticationController::class, 'login']);
-Route::middleware('auth:api')->get(
-    'logout',
-    [AuthenticationController::class, 'logout']
-);
+
 Route::get(
     'unauthenticated',
     [AuthenticationController::class, 'unauthenticated']
 )->name('unauthenticated');
 
-Route::middleware('auth:api')->prefix('settings')->group(function () {
-    Route::get('/', [SettingController::class, 'show']);
-    Route::put('/{id}', [SettingController::class, 'update']);
-});
+Route::middleware('auth:api')->group(function () {
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [SettingController::class, 'show']);
+        Route::put('/{id}', [SettingController::class, 'update']);
+    });
 
-Route::middleware('auth:api')->post(
-    'get-data',
-    [DataController::class, 'getData']
-);
+    Route::post(
+        'get-data',
+        [DataController::class, 'getData']
+    );
+
+    Route::get(
+        'logout',
+        [AuthenticationController::class, 'logout']
+    );
+
+    Route::put(
+        'profile',
+        [UserController::class, 'update']
+    );
+});
