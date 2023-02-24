@@ -1,19 +1,20 @@
-Backend project
-clone the project using:
-```https://github.com/AysarHajaj/news_project.git```
-run ```cd backend```
-run ```composer install```
-create local database named ```innoscriptaDB```
-copy .env-example to .env
-run ```php artisan migrate```
-run ```php artisan passport:install```
-run ```php artisan serve```
+Backend project\n
+clone the project using:\n
+```https://github.com/AysarHajaj/news_project.git```\n
+run ```cd backend```\n
+run ```composer install```\n
+create local database named ```innoscriptaDB```\n
+copy .env-example to .env\n
+run ```php artisan migrate```\n
+run ```php artisan passport:install```\n
+run ```php artisan serve```\n
+\n
+\n
 
-
-Frontend Project
-clone the project using:
-```https://github.com/AysarHajaj/news_project.git```
-run ```cd frontend```
-run ```npm install```
-copy .env-example to .env
-run ```npm start```
+Frontend Project\n
+clone the project using:\n
+```https://github.com/AysarHajaj/news_project.git```\n
+run ```cd frontend```\n
+run ```npm install```\n
+copy .env-example to .env\n
+run ```npm start```\n
