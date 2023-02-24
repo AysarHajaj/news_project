@@ -34,7 +34,6 @@ function Settings() {
   } = useAuth();
   const { isLoading, error, sources, categories } = useSelector(selectOptions);
   const dispatch = useDispatch();
-  const nameRef = useRef();
 
   const [data, setData] = useState({
     category: initialData.category,
@@ -114,7 +113,7 @@ function Settings() {
             name="category"
             value={data.category}
             onChange={(e) => {
-              data.category = e.target.name;
+              setData({ ...data, category: e.target.value });
             }}
           >
             {categories.map((category) => (
