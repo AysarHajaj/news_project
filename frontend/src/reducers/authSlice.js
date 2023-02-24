@@ -82,7 +82,7 @@ export const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.register.isLoading = false;
-        state.register.user = action.payload.result.user;
+        state.login.user = action.payload.result.user;
         state.login.token = action.payload.result.token;
         storage.setUser(action.payload.result.user);
         storage.setToken(action.payload.result.token);
