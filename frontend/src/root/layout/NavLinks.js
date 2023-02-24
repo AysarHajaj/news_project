@@ -11,8 +11,12 @@ import { useAuth } from "../../hooks/useAuth";
 import ROUTES from "../../routes/paths";
 
 function NavLinks() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate(ROUTES.LOGIN);
+  };
   const links = useMemo(
     () => [
       {
@@ -67,12 +71,9 @@ function NavLinks() {
         </NavLink>
       ))}
       <NavLink
-        to={ROUTES.LOGOUT}
         className="nav-link-item"
         hidden={!isAuthenticated}
-        onClick={() => {
-          navigate(ROUTES.LOGIN.path);
-        }}
+        onClick={handleLogout}
       >
         <LogoutIcon />
         <Typography sx={{ display: { xs: "none", sm: "block" } }}>
