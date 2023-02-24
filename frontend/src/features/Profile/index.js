@@ -89,7 +89,6 @@ function Profile() {
             onChange={handleChangeInputs}
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            required
             margin="dense"
             endAdornment={
               <InputAdornment position="end">
@@ -113,7 +112,6 @@ function Profile() {
             onChange={handleChangeInputs}
             type={showPassword ? "text" : "password"}
             placeholder="Password Confirmation"
-            required
             margin="dense"
             endAdornment={
               <InputAdornment position="end">
