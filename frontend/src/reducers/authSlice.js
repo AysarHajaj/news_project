@@ -40,6 +40,11 @@ export const authSlice = createSlice({
       state.login.user = newUser;
       storage.setUser(newUser);
     },
+    setSettingData: (state, action) => {
+      const newSettings = { ...state.login.user.setting, ...action.payload };
+      state.login.user.setting = newSettings;
+      storage.setUser({ ...state.login.user, setting: newSettings });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -57,7 +62,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.login.isLoading = false;
-        state.login.error = action.payload.result.error;
+        state.login.error = action.payload.error;
       })
       // register case
       .addCase(register.pending, (state) => {
@@ -73,13 +78,13 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.register.isLoading = false;
-        state.register.error = action.payload.result.error;
+        state.register.error = action.payload.error;
       });
   },
 });
 
 export const selectLogin = (state) => state.auth.login;
 export const selectRegister = (state) => state.auth.register;
-export const { setUserData } = authSlice.actions;
+export const { setUserData, setSettingData } = authSlice.actions;
 
 export default authSlice.reducer;
